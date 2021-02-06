@@ -1,0 +1,279 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MagicWandWin</name>
+    </assembly>
+    <members>
+        <member name="T:MagicWand.Magic">
+            <summary>
+            一分間プログラミングに必要なメソッドを実装したクラス。
+            </summary>
+        </member>
+        <member name="M:MagicWand.Magic.SaveList(System.Collections.Generic.List{System.String},System.String)">
+            <summary>
+            文字列ListをUnicodeで保存。TAB区切りにして拡張子.csvを指定するとExcelでクリックして開ける。
+            </summary>
+            <param name="list">文字列のリスト</param>
+            <param name="filename">ファイル名.csvだけだと実行ファイルに保存。パスの指定も可能。</param>
+        </member>
+        <member name="M:MagicWand.Magic.GetSoccerPlayerData">
+            <summary>
+            日本のプロサッカー選手からランダムに選ん100人分のデータをテキストとして取得する。
+            各行のデータは、名前;ポジション;生年月日の３種類。このセットが一行に一つある。
+            </summary>
+            <returns>文字列で100人分のListデータ</returns>
+        </member>
+        <member name="M:MagicWand.Magic.GetCSVData(System.String)">
+            <summary>
+            ローカルのCSVファイルからListデータを取得
+            </summary>
+            <param name="csvPath">CSVファイルのパス</param>
+            <returns></returns>
+        </member>
+        <member name="M:MagicWand.Magic.GetHTML(System.String)">
+            <summary>
+            URLからHTMLテキストを取得する。
+            </summary>
+            <param name="url">サイトアドレス（e.g. https//abc.com）</param>
+            <returns></returns>
+        </member>
+        <member name="M:MagicWand.Magic.GetHTML(System.String,System.Text.Encoding)">
+            <summary>
+            URLからHTMLテキストを取得：エンコード指定あり
+            </summary>
+            <param name="url">サイトアドレス</param>
+            <param name="encode">エンコード（e.g. "x-sjis"）</param>
+            <returns></returns>
+        </member>
+        <member name="M:MagicWand.Magic.GetWebText(System.String)">
+            <summary>
+            URLからHTMLテキストを取得：エンコード指定なし
+            </summary>
+            <param name="url">サイトアドレス</param>
+            <returns></returns>
+        </member>
+        <member name="M:MagicWand.Magic.GetWebText(System.String,System.Text.Encoding)">
+            <summary>
+            HTMLからテキストだけを抽出：エンコード指定あり
+            </summary>
+            <param name="url">サイトアドレス</param>
+            <param name="encode">ページのエンコード</param>
+            <returns></returns>
+        </member>
+        <member name="M:MagicWand.Magic.StripHTML(System.String)">
+            <summary>
+            HTMLからタグを取り除く
+            </summary>
+            <param name="html">HTMLのテキスト</param>
+            <returns></returns>
+        </member>
+        <member name="M:MagicWand.Magic.GetWikipedia(System.String)">
+            <summary>
+            WikiPediaの記事内容をトピックワードから取得する。日本語限定。
+            </summary>
+            <param name="topic">トピックワード</param>
+            <returns>Wiki形式のテキスト</returns>
+        </member>
+        <member name="M:MagicWand.Magic.GetWikiGojyuonList(System.String)">
+            <summary>
+            Wikipediaの一覧記事から五十音リストになっているものを抽出する
+            </summary>
+            <param name="title">Wikiタイトル</param>
+            <returns>List形式で、五十音文字＋タブ＋項目テキスト</returns>
+        </member>
+        <member name="M:MagicWand.Magic.GetQuizFromWiki(System.String)">
+            <summary>
+            WikiPedia記事のテキストからクイズを生成する。
+            </summary>
+            <param name="topic">トピックワード</param>
+            <returns>Dictionaryで、質問、回答の文字列</returns>
+        </member>
+        <member name="M:MagicWand.Magic.GetMultipleChoiceByTopic(System.String)">
+            <summary>
+            トピックをもとに三択用項目を自動的にピックアップする。
+            </summary>
+            <param name="topic">トピック名</param>
+            <returns>三択形式の文字列（"[1:aaa 2:bbb 3:ccc]"）</returns>
+        </member>
+        <member name="M:MagicWand.Magic.CleanupSantakuText(System.String)">
+            <summary>
+            三択でトピック名を指定する際にするテキストクリーンアップ
+            </summary>
+            <param name="pageName">トピック名</param>
+            <returns>クリーンアップされたテキスト</returns>
+        </member>
+        <member name="M:MagicWand.Magic.GetQuizSentence(System.String,System.Collections.Generic.Dictionary{System.String,System.String}@)">
+            <summary>
+            大きなパラグラフテキストからクイズ文セットを生成する。
+            </summary>
+            <param name="line">読点が入った段落の文章セット</param>
+            <param name="qanda">Questions and Answers辞書</param>
+        </member>
+        <member name="M:MagicWand.Magic.GenerateQuiz(System.String)">
+            <summary>
+            Wiki記事の中にある一行（１パラグラフ）をもとに、クイズ文章を生成する。
+               １．読点でパラグラフを区切り、最低３つの文章が必要。
+               ２．最低一つのブラケット（e.g. [[テキスト]]）が必要
+               ３．文章に２０文字以上が必要（短すぎるものはスキップ）
+               ４．最も文字数が多いブラケットをクイズにする。
+            </summary>
+            <param name="sentence">Wikipediaから抽出した一文</param>
+            <returns></returns>
+        </member>
+        <member name="M:MagicWand.Magic.GetRandomWikiTopics(System.Int32)">
+            <summary>
+            Wiki記事の中からランダムに、指定して数の記事をピックアップする
+            </summary>
+            <param name="number">返す記事の数を指定する</param>
+            <returns></returns>
+        </member>
+        <member name="M:MagicWand.Magic.GetWikiCategoryByTopic(System.String)">
+            <summary>
+            指定したトピックが属するカテゴリを列挙する。
+            </summary>
+            <param name="topic">トピック名</param>
+            <returns></returns>
+        </member>
+        <member name="M:MagicWand.Magic.GetPageFromCategory(System.String)">
+            <summary>
+            カテゴリ名をもとに、カテゴリ内にある記事を列挙する
+            </summary>
+            <param name="categoryName">カテゴリー名</param>
+            <returns></returns>
+        </member>
+        <member name="F:MagicWand.Magic.recoText">
+            <summary>
+            クラス変数
+            </summary>
+            
+        </member>
+        <member name="M:MagicWand.Magic.Recognize">
+            <summary>
+            Speach-to-Text 音声認識メソッド（日本語のみ）
+            </summary>
+            <returns>認識された日本語のテキスト</returns>
+        </member>
+        <member name="M:MagicWand.Magic.Recognize(System.String)">
+            <summary>
+            Speech-to-Text: 音声認識メソッド。
+            </summary>
+            <param name="locale">認識する音声の言語</param>
+            <returns>認識されたテキスト</returns>
+        </member>
+        <member name="M:MagicWand.Magic.e_SpeechRecognized(System.Object,System.Speech.Recognition.SpeechRecognizedEventArgs)">
+            <summary>
+            音声認識イベント、e_SpeechRecognized
+            </summary>
+            <param name="sender"></param>
+            <param name="e">SpeechRecognizedEventArgs</param>
+        </member>
+        <member name="M:MagicWand.Magic.RecognizeFromList(System.String[])">
+            <summary>
+            Speech-to-Text 音声認識をグラマーベースで行う。日本語専用。
+            </summary>
+            <param name="listitems">グラマー</param>
+            <returns>認識されたテキスト</returns>
+        </member>
+        <member name="M:MagicWand.Magic.RecognizeFromList(System.String[],System.String)">
+            <summary>
+            Grammerから音声認識をする。グラマーは文字列配列で指定。
+            </summary>
+            <param name="listitems">認識する項目のグラマー</param>
+            <param name="locale">ロケール</param>
+            <returns></returns>
+        </member>
+        <member name="M:MagicWand.Magic.SpeakWave(System.String,System.String)">
+            <summary>
+            音声合成したファイルをローカルに保存（常にmagicvoice.wav）し、それを再生。
+            </summary>
+            <param name="text"></param>
+            <param name="locale"></param>
+        </member>
+        <member name="M:MagicWand.Magic.Speak(System.String)">
+            <summary>
+            Text-to-Speechメソッド：入力したテキストを音声合成する。日本語のみ対応。
+            </summary>
+            <param name="text">音声化するテキスト</param>
+        </member>
+        <member name="M:MagicWand.Magic.Speak(System.String,System.String)">
+            <summary>
+            Text-to-Speechメソッド：入力したテキストを音声合成する。言語指定あり。
+            </summary>
+            <param name="text">音声化するテキスト</param>
+            <param name="locale">言語（en-US, ja-JP, etc.）</param>
+        </member>
+        <member name="M:MagicWand.Magic.Speak(System.String,System.String,System.String)">
+            <summary>
+            Text-to-Speechメソッド：入力したテキストを音声合成する。言語指定とVoice名指定あり。
+            </summary>
+            <param name="text">音声化するテキスト</param>
+            <param name="locale">ロケール名</param>
+            <param name="vname">ボイス名（Haruka, Zira, David）</param>
+        </member>
+        <member name="M:MagicWand.Magic.GetCityList">
+            <summary>
+            Livedoor 天気予報APIで使われる都市名とコードを取得する
+            </summary>
+            <returns>Dictionary形式で、Key：都市名、Value:コード</returns>
+        </member>
+        <member name="M:MagicWand.Magic.GetCityListOnline">
+            <summary>
+            Livedoor天気予報WebAPIからオンラインで都市名とコードを取得する
+            </summary>
+            <returns>Dictionary形式で、Key：都市名、Value:コード</returns>
+        </member>
+        <member name="M:MagicWand.Magic.GetWeatherJsonText(System.String)">
+            <summary>
+            Livedoor天気予報APIから都市名をもとに予報JSONを取得
+            </summary>
+            <param name="city">都市名</param>
+            <returns>天気予報のJSONデータ</returns>
+        </member>
+        <member name="M:MagicWand.Magic.GetJsonValue(System.String,System.String)">
+            <summary>
+            JSON形式のデータからキーをもとに値を取得
+            </summary>
+            <param name="jsonText">JSONテキスト</param>
+            <param name="key">キー名</param>
+            <returns>対応する値</returns>
+        </member>
+        <member name="M:MagicWand.Magic.GetWeatherText(System.String)">
+            <summary>
+            Livedoor天気予報APIから都市名をもとに天気予報文を取得
+            </summary>
+            <param name="city">都市名</param>
+            <returns>天気予報文</returns>
+        </member>
+        <member name="M:MagicWand.Magic.GetWeathreLines(System.String)">
+            <summary>
+            日にちごとの天気予報短文を取得する。
+            </summary>
+            <param name="weatherText">天気予報テキストの全文</param>
+            <returns>あてはまる文章のリスト。[0]が今日、[1]が明日の天気文。</returns>
+        </member>
+        <member name="M:MagicWand.Magic.GetWeatherLineByCity_DEPRECATED(System.String,System.String)">
+            <summary>
+            DEPRECATED: 都市名と日にち（今日か明日）をもとに予報文章を返す。
+            </summary>
+            <param name="cityname">都市名</param>
+            <param name="day">”今日”か”明日”</param>
+            <returns>天気予報のテキスト</returns>
+        </member>
+        <member name="M:MagicWand.Magic.GetWeatherLineByCity(System.String,System.String)">
+            <summary>
+            都市名と日にち（今日か明日）をもとに予報文章を返す。
+            </summary>
+            <param name="cityname">都市名</param>
+            <param name="day">”今日”か”明日”</param>
+            <returns>天気予報のテキスト</returns>
+        </member>
+        <member name="M:MagicWand.Magic.ExtractCityAndDay(System.String)">
+            <summary>
+            文字列から「都市名」（Magic.GetCityListに該当するものが対象）と
+            「日にち（今日か明日という言葉）を抽出する。両方とも存在しなければnullを返す。
+            </summary>
+            <param name="utterance">文字列</param>
+            <returns>文字列配列の０に都市名、１に"今日"か"明日"が入る</returns>
+        </member>
+    </members>
+</doc>
